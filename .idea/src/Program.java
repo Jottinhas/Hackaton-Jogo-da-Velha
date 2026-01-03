@@ -201,6 +201,12 @@ public class Program {
      */
     static int[] obterJogadaComputador(String posicoesLivres, Scanner teclado) {
         //TODO 15: Implementar método conforme explicação
+        String[] vetorPosicoesLivres = posicoesLivres.split(";");
+        Random random = new Random();
+        Integer indiceRandom = random.nextInt(posicoesLivres.split(";").length);
+        String jogada = vetorPosicoesLivres[indiceRandom];
+        int[] vetorIntJogadaComputador = converterJogadaStringParaVetorInt(jogada);
+        return vetorIntJogadaComputador;
     }
 
     /*
@@ -214,6 +220,12 @@ public class Program {
      */
     static int[] converterJogadaStringParaVetorInt(String jogada) {
         //TODO 16: Implementar método conforme explicação
+        String[] vetorJogada = jogada.split("");
+        int[] vetorJogadaInteger = new int[vetorJogada.length];
+        for (int i = 0; i < vetorJogada.length; i++) {
+            vetorJogadaInteger[i] = Integer.parseInt(vetorJogada[i]);
+        }
+        return vetorJogadaInteger;
     }
 
     /*
@@ -242,6 +254,9 @@ public class Program {
      */
     static void processarVezComputador(char caractereComputador) {
         //TODO 18: Implementar método conforme explicação
+        String posicoesLivres = retornarPosicoesLivres();
+        int[] jogada = obterJogadaComputador(posicoesLivres, teclado);
+        atualizaTabuleiro(jogada, caractereComputador);
     }
 
     /*

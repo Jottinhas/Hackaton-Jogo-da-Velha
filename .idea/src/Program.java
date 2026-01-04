@@ -5,7 +5,7 @@ public class Program {
     // Estes caracteres são aceitos como caracteres para representarem
     // os jogadores. Utizado para evitar caracteres que não combinem com
     // o desenho do tabuleiro.
-    final static String CARACTERES_IDENTIFICADORES_ACEITOS = "XOUC"; //U -> usuário, C -> Computador
+    final static String CARACTERES_IDENTIFICADORES_ACEITOS = "XOUC"; // U -> usuário, C -> Computador
 
     // Tamanho do tabuleiro 3x3. Para o primeiro nivel de dificuldade
     // considere que este valor não será alterado.
@@ -42,13 +42,14 @@ public class Program {
             exibirTabuleiro();
 
             if (vezUsuarioJogar){
-
+               
                 //TODO 03: Execute a chamada processar vez do usuario
+                processarVezUsuario(caractereUsuario);
 
                 // Verifica se o usuario venceu
-                //TODO 04: Este if deve executar apenas se teve ganhador
-                if ( /*TODO: esreva aqui a chamada para teveGanhador verificar se o usuário ganhou*/ ) {
-
+                //TODO 04: Este if deve executar apenas se teve ganhador 
+                if (teveGanhador(caractereUsuario)) {
+                    
                     exibirTabuleiro();
                     exibirVitoriaUsuario();
                     jogoContinua = false;
@@ -84,7 +85,6 @@ public class Program {
         teclado.close();
     }
 
-
     /*
      * Descrição: Utilizado para iniciar a matriz/tabuleiro com o caractere ' '
      * espaço, no início do jogo. Matrizes de char precisam ter um valor
@@ -97,7 +97,7 @@ public class Program {
      * Nível de complexidade: 3 de 10
      */
     static void inicializarTabuleiro() {
-        //TODO 10: Implementar método conforme explicação
+        // TODO 10: Implementar método conforme explicação
 
     }
 
@@ -112,7 +112,7 @@ public class Program {
      * Nível de complexidade: 4 de 10
      */
     static char obterCaractereUsuario() {
-        //TODO 11: Implementar método conforme explicação
+        // TODO 11: Implementar método conforme explicação
 
     }
 
@@ -130,7 +130,7 @@ public class Program {
      * Nível de complexidade: 4 de 10
      */
     static char obterCaractereComputador(char caractereUsuario) {
-        //TODO 12: Implementar método conforme explicação
+        // TODO 12: Implementar método conforme explicação
     }
 
     /*
@@ -144,7 +144,7 @@ public class Program {
      * Nível de complexidade: 3 de 10
      */
     static boolean jogadaValida(String posicoesLivres, int linha, int coluna) {
-        //TODO 13: Implementar método conforme explicação
+        // TODO 13: Implementar método conforme explicação
     }
 
     /*
@@ -173,7 +173,7 @@ public class Program {
      * Nível de complexidade: 5 de 10
      */
     static int[] obterJogadaUsuario(String posicoesLivres, Scanner teclado) {
-        //TODO 14: Implementar método conforme explicação
+        // TODO 14: Implementar método conforme explicação
     }
 
     /*
@@ -200,7 +200,7 @@ public class Program {
      * Nível de complexidade: 6 de 10
      */
     static int[] obterJogadaComputador(String posicoesLivres, Scanner teclado) {
-        //TODO 15: Implementar método conforme explicação
+        // TODO 15: Implementar método conforme explicação
         String[] vetorPosicoesLivres = posicoesLivres.split(";");
         Random random = new Random();
         Integer indiceRandom = random.nextInt(posicoesLivres.split(";").length);
@@ -219,7 +219,7 @@ public class Program {
      * Nível de complexidade: 4 de 10
      */
     static int[] converterJogadaStringParaVetorInt(String jogada) {
-        //TODO 16: Implementar método conforme explicação
+        // TODO 16: Implementar método conforme explicação
         String[] vetorJogada = jogada.split("");
         int[] vetorJogadaInteger = new int[vetorJogada.length];
         for (int i = 0; i < vetorJogada.length; i++) {
@@ -233,12 +233,19 @@ public class Program {
      * do usuário jogar. Este método deve exibir uma mensagem que é a vez do usuário
      * jogar. Este método é encarregado de obter a jogada do usuário através do
      * método obterJogadaUsuario, depois realizar a atualização do tabuleiro através
-     * do método atualizaTabuleiro. Lembre-se que para chamar o método obterJogadaUsuario
+     * do método atualizaTabuleiro. Lembre-se que para chamar o método
+     * obterJogadaUsuario
      * é necessário saber quais posições estão livres
      * Nível de complexidade: 5 de 10
      */
+
     static void processarVezUsuario(char caractereUsuario) {
-        //TODO 17: Implementar método conforme explicação
+        // TODO 17: Implementar método conforme explicação
+        System.out.println("Escolha a posicao: ");
+        String posicoesLivres = retornarPosicoesLivres();
+        int[] jogada = obterJogadaUsuario(posicoesLivres, teclado);
+
+        atualizaTabuleiro(jogada, caractereUsuario);
     }
 
     /*
@@ -249,11 +256,12 @@ public class Program {
      * Lembre-se que para chamar o método obterJogadaUsuario
      * é necessário saber quais posições estão livres
      * Nível de complexidade: 5 de 10 se o computador for jogar aleatoriamente
-     * Nível de complexidade: 8 de 10 se o computador for jogar sempre para se defender
+     * Nível de complexidade: 8 de 10 se o computador for jogar sempre para se
+     * defender
      * Nível de complexidade: 10 de 10 se o computador for jogar para ganhar
      */
     static void processarVezComputador(char caractereComputador) {
-        //TODO 18: Implementar método conforme explicação
+        // TODO 18: Implementar método conforme explicação
         String posicoesLivres = retornarPosicoesLivres();
         int[] jogada = obterJogadaComputador(posicoesLivres, teclado);
         atualizaTabuleiro(jogada, caractereComputador);
@@ -271,9 +279,8 @@ public class Program {
      * Nível de complexidade: 5 de 10
      */
     static String retornarPosicoesLivres() {
-        //TODO 19: Implementar método conforme explicação
+        // TODO 19: Implementar método conforme explicação
     }
-
 
     /*
      * Descrição: Utilizado para verificar se o jogador identificado por
@@ -292,7 +299,7 @@ public class Program {
      * Nível de complexidade: 8 de 10 se o tabuleiro dinâmico
      */
     static boolean teveGanhador(char caractereJogador) {
-        //TODO 20: Implementar método conforme explicação
+        // TODO 20: Implementar método conforme explicação
     }
 
     /*
@@ -307,19 +314,19 @@ public class Program {
      * Nível de complexidade: 8 de 10 se o tabuleiro dinâmico
      */
     static boolean teveGanhadorLinha(char caractereJogador) {
-        //TODO 21: Implementar método conforme explicação
+        // TODO 21: Implementar método conforme explicação
     }
 
     static boolean teveGanhadorColuna(char caractereJogador) {
-        //TODO 22: Implementar método conforme explicação
+        // TODO 22: Implementar método conforme explicação
     }
 
-    static boolean teveGanhadorDiagonalPrincipal( char caractereJogador) {
-        //TODO 23: Implementar método conforme explicação
+    static boolean teveGanhadorDiagonalPrincipal(char caractereJogador) {
+        // TODO 23: Implementar método conforme explicação
     }
 
     static boolean teveGanhadorDiagonalSecundaria(char caractereJogador) {
-        //TODO 24: Implementar método conforme explicação
+        // TODO 24: Implementar método conforme explicação
     }
 
     /*
@@ -329,7 +336,7 @@ public class Program {
      * Nível de complexidade: 3 de 10
      */
     static void limparTela() {
-        //TODO 25: Implementar método conforme explicação
+        // TODO 25: Implementar método conforme explicação
     }
 
     /*
@@ -341,7 +348,7 @@ public class Program {
      * Nível de complexidade: 4 de 10
      */
     static void exibirTabuleiro() {
-        //TODO 26: Implementar método conforme explicação
+        // TODO 26: Implementar método conforme explicação
         // execute no início deste método a chamada ao método limparTela
         // para garantir que seja exibido o tabuleiro sem nenhum conteúdo antes dele.
     }
@@ -358,9 +365,10 @@ public class Program {
      * retornado através do comando return
      * Nível de complexidade: 3 de 10
      */
-    static void atualizaTabuleiro(int[] jogada, char caractereJogador) {
-        //TODO 27: Implementar método conforme explicação
-
+    static char[][] atualizaTabuleiro(char[][] tabuleiro, int[] jogada, char caractereJogador) {
+        // TODO 27: Implementar método conforme explicação
+        tabuleiro[jogada[0]][jogada[1]] = caractereJogador;
+        return tabuleiro;
     }
 
     /*
@@ -371,7 +379,7 @@ public class Program {
      * Nível Complexidade: 2 de 10
      */
     static void exibirVitoriaComputador() {
-        //TODO 28: Implementar método conforme explicação
+        // TODO 28: Implementar método conforme explicação
     }
 
     /*
@@ -382,7 +390,7 @@ public class Program {
      * Nível Complexidade: 2 de 10
      */
     static void exibirVitoriaUsuario() {
-        //TODO 29: Implementar método conforme explicação
+        // TODO 29: Implementar método conforme explicação
     }
 
     /*
@@ -393,7 +401,7 @@ public class Program {
      * Nível Complexidade: 2 de 10
      */
     static void exibirEmpate() {
-        //TODO 30: Implementar método conforme explicação
+        // TODO 30: Implementar método conforme explicação
     }
 
     /*
@@ -405,7 +413,7 @@ public class Program {
      * Nível de complexidade: 3 de 10
      */
     static boolean teveEmpate() {
-        //TODO 31: Implementar método conforme explicação
+        // TODO 31: Implementar método conforme explicação
 
     }
 
@@ -418,8 +426,7 @@ public class Program {
      * Nível de complexidade: 3 de 10
      */
     static boolean sortearValorBooleano() {
-        //TODO 32: Implementar método conforme explicação
+        // TODO 32: Implementar método conforme explicação
     }
-
 
 }

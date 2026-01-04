@@ -112,68 +112,95 @@ public class Program {
      * Nível de complexidade: 4 de 10
      */
     static char obterCaractereUsuario() {
-        // TODO 11: Implementar método conforme explicação
+    //TODO 11: Implementar método conforme explicação
+    char usuario = '\0'; 
+    boolean erroLeitura = true;
 
-    }
+    do {
 
-    /*
-     * Descrição: Utilizado para obter no início do jogo qual o caractere que o
-     * usuário quer utilizar para representar o computador. Este método recebe o
-     * teclado e recebe o caractere que foi configurado para o usuário, pois o
-     * usuário e o computador não podem jogar com o mesmo caractere. Por exemplo,
-     * se o usuário configurou para ele o caractere X ele não pode escolher o X
-     * como o caractere também para o computador. Neste método apenas os seguintes
-     * caracteres definidos pela constante CARACTERES_IDENTIFICADORES_ACEITOS devem
-     * ser aceitos. Lembre-se que o caractere armazenado em caractereUsuario não
-     * pode ser aceito. Após realizar a leitura do caractere pelo teclado e
-     * validá-lo, faça o return deste caractere.
-     * Nível de complexidade: 4 de 10
-     */
+        String input = Leitura.lerValorString("Digite a opção: "); 
+        usuario = input.toUpperCase().charAt(0); 
+
+        if (CARACTERES_IDENTIFICADORES_ACEITOS.indexOf(usuario) == -1) {
+            System.out.println("Caractere inválido! Escolha entre: " + CARACTERES_IDENTIFICADORES_ACEITOS);
+            erroLeitura = true; // Continua no loop
+        } else erroLeitura = false; // Sai do loop
+        
+
+    } while (erroLeitura);
+
+    return usuario;
+}
+    
     static char obterCaractereComputador(char caractereUsuario) {
-        // TODO 12: Implementar método conforme explicação
+        //TODO 12: Implementar método conforme explicação
+
+        char computador = '\0';
+        boolean erroLeitura = true;
+
+        do {
+
+            String input = Leitura.lerValorString("Digite a opção: "); 
+            computador = input.toUpperCase().charAt(0); 
+
+            if (CARACTERES_IDENTIFICADORES_ACEITOS.indexOf(computador) == -1) {
+                System.out.println("Caractere inválido! Use apenas: " + CARACTERES_IDENTIFICADORES_ACEITOS);
+                erroLeitura = true; // Continua no loop
+            } else if (computador == caractereUsuario) {
+                System.out.println("Esse caractere já foi escolhido para o usuário! Escolha outro.");
+                erroLeitura = true; // Continua no loop
+            } else erroLeitura = false; // Sai do loop
+        
+    } while (erroLeitura);
+
+    return computador;
     }
 
-    /*
-     * Descrição: Utilizado para validar se a jogada do usuário é uma jogada válida.
-     * Uma jogada é considerada válida quando ela está presente dentro da lista de
-     * posicoesLivres. Desta forma, o método recebe a string com as posições livres,
-     * além da linha e coluna jogada pelo usuário. O método verifica se a linha e
-     * coluna está presente dentro da string de posições livres, se estiver retorna
-     * true se não retorna false. Para descobrir se a linha e coluna esta presente
-     * dentro da lista de posições livres pense em usar método contanis da string.
-     * Nível de complexidade: 3 de 10
-     */
     static boolean jogadaValida(String posicoesLivres, int linha, int coluna) {
-        // TODO 13: Implementar método conforme explicação
+        //TODO 13: Implementar método conforme explicação
+        String jogada = "" + linha + coluna; // Concatena linha e coluna
+        boolean jogadaValida = posicoesLivres.contains(jogada); // Usa contains para verificar se a jogada é valida
+        return jogadaValida;
     }
 
-    /*
-     * Descrição: Utilizado para obter do usuário a linha e a coluna que ele deseja
-     * jogar. Para isto o método deve exibir um mensagem informando que o jogador
-     * deve digitar a linha e a coluna separados por um espaço. O método deve
-     * realizar as validações necessárias para os casos do usuário não digitar
-     * dois valores e também para o caso do usuário não digitar números.
-     * O método deve garantir que o usuário digite os valores conforme solicitado
-     * e devolva os valores lidos somente quando estes atenderam as regras.
-     * Após a leitura dos valores de linha e coluna, o método deve retornar os
-     * valores já no formato de índice, ou seja, no tabuleiro exibimos para o
-     * usuário linha 1, linha 2, linha 3, coluna 1, coluna 2 e coluna 3. O
-     * usuário digita os valores neste formato, no entanto o método ao retonar
-     * os valores deve ajustar a linha 1 para o índice 0, a linha 2 para o índice
-     * 1 e assim sucessivamente, da mesma forma que as colunas.
-     * Após a validação e ajuste dos índices, o método deve verificar se a jogada
-     * do usuário está presente na lista de posicoesLivres que ele recebeu como
-     * parametro. Para isto, o método faz a chamada ao método jogadaValida()
-     * para determinar se a jogada é aceita. Se a jogada não for aceita, é exibido
-     * uma mensagem informando que a jogada não é permitida e reinicia o processo de
-     * leitura de uma nova jogada. Se a jogada for aceita deve devolver os
-     * valores no formato de um vetor de inteiro de duas posições. No índice 0 deste
-     * vetor, deve ser armazenado o valor da linha jogada pelo usuário e no índice 1
-     * do vetor, deve ser armazenado a coluna jogada pelo usuário.
-     * Nível de complexidade: 5 de 10
-     */
     static int[] obterJogadaUsuario(String posicoesLivres, Scanner teclado) {
-        // TODO 14: Implementar método conforme explicação
+        //TODO 14: Implementar método conforme explicação
+        
+        boolean erroLeitura = true;
+        int linhaIndice = 0, colunaIndice =0;
+        do {
+            String jogadaUsuario = Leitura.lerValorString("Digite a linha e coluna que deseja jogar, separados por um espaço.\nExemplo:\n1 1,1 2,2 1.");
+            String inputLimpo = jogadaUsuario.trim();
+            if (inputLimpo.isEmpty()) {
+            continue; 
+            } else if (!inputLimpo.contains(" ")) {
+                System.out.println("ERRO: É necessário separar por um espaço");
+                erroLeitura = true;
+            } else {
+                String[] pedacos = inputLimpo.split(" ");
+                if (pedacos.length != 2) {
+                    System.out.println("ERRO: Digite exatamente dois valores!");
+                    erroLeitura = true;
+                } else {
+                    try {
+                        int linha = Integer.parseInt(pedacos[0]);
+                        int coluna = Integer.parseInt(pedacos[1]);
+                        if (jogadaValida(posicoesLivres, linha, coluna)) {
+                            linhaIndice = (linha - 1);
+                            colunaIndice = (coluna - 1);
+                            erroLeitura = false;
+                        } else {
+                            System.out.println("ERRO: Essa posição não é válida ou já está ocupada!");
+                            erroLeitura = true;
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("ERRO: Digite dois números!");
+                        erroLeitura = true;
+                    }
+                }
+            }
+        } while (erroLeitura);
+        return new int[] {linhaIndice, colunaIndice};
     }
 
     /*

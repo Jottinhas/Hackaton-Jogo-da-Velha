@@ -379,6 +379,16 @@ public class Program {
      * Nível Complexidade: 2 de 10
      */
     static void exibirVitoriaComputador() {
+         System.out.println("   _____________________\n" + //
+                            "  |  _________________  |\n" + //
+                            "  | |                 | |\n" + //
+                            "  | |    COMPUTADOR   | |\n" + //
+                            "  | |      VENCEU     | |\n" + //
+                            "  | |_________________| |\n" + //
+                            "  |_____________________|\n" + //);
+                            "    ___________________\n" + //
+                            "   |___________________|\n" + //
+                            "");
         // TODO 28: Implementar método conforme explicação
     }
 
@@ -390,6 +400,11 @@ public class Program {
      * Nível Complexidade: 2 de 10
      */
     static void exibirVitoriaUsuario() {
+        System.out.println( "  _  |       |  _\n" + //
+                            " ( \\ |  WIN  | / )\n" + //
+                            "  \\ \\|_______|/ /\n" + //
+                            "   \\           /\n" + //
+                            "    \\         /\n" );
         // TODO 29: Implementar método conforme explicação
     }
 
@@ -401,6 +416,13 @@ public class Program {
      * Nível Complexidade: 2 de 10
      */
     static void exibirEmpate() {
+        System.out.println("       _____\n" + //
+                                "      /     \\\n" + //
+                                "     |  -_-  |  <-- \"Ninguém ganhou desta vez!\"\n" + //
+                                "      \\  V  /\n" + //
+                                "      --| |--\n" + //
+                                "     /  |  \\\n" + //
+                                "");
         // TODO 30: Implementar método conforme explicação
     }
 

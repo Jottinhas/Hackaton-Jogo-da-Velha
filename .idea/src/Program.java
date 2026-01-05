@@ -60,22 +60,25 @@ public class Program {
             } else {
 
                 //TODO 05: Execute a chamada processar vez do computador
+                processarVezComputador(caractereComputador);
 
                 // Verifica se o computador venceu
                 //TODO 06: Este if deve executar apenas se teve ganhador
-                if ( /*esreva aqui a chamada para teve ganhador*/ ) {
+                if ( teveGanhador(caractereComputador) ) {
 
                     //TODO 07: Exiba que o computador ganhou
+                    exibirTabuleiro();
+                    exibirVitoriaComputador();
                     jogoContinua = false;
                 }
 
-                //TODO 08: defina qual o vaor a variavel abaixo deve possuir para que a proxima execucao do laco seja a vez do usuário
-                vezUsuarioJogar = ????;
+                //TODO 08: defina qual o valor a variavel abaixo deve possuir para que a proxima execucao do laco seja a vez do usuário
+                vezUsuarioJogar = true;
             }
-
-            //TODO 09: Este if deve executar apenas se o jogo continua E
-            //ocorreu tempate. Utilize o metodo teveEmpate()
-            if ( /*escreva aqui a condicao conforme o TODO acima*/ ) {
+        
+            //TODO 09: Este if deve executar apenas se o jogo continua E 
+            //ocorreu empate. Utilize o metodo teveEmpate()
+            if ( jogoContinua && teveEmpate()) {
                 exibirTabuleiro();
                 exibirEmpate();
                 jogoContinua = false;
@@ -463,7 +466,8 @@ public class Program {
      */
     static boolean teveEmpate() {
         // TODO 31: Implementar método conforme explicação
-
+        String posicoesLivres = retornarPosicoesLivres();
+        return posicoesLivres.isEmpty();
     }
 
     /*

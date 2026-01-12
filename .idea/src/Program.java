@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class App {
+public class Program {
 
     static Scanner teclado = new Scanner(System.in);
     static Random random = new Random();

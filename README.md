@@ -1,4 +1,4 @@
-# 🕹️ Jogo da Velha — Hackathon
+# 🕹️ Jogo da Velha - Hackathon - GRUPO 4 
 
 ## 📌 Sobre o Projeto
 

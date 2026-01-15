@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class App {
+public class Program {
 
     static Scanner teclado = new Scanner(System.in);
     static Random random = new Random();
@@ -32,7 +32,7 @@ public class App {
                     break;
                 }
             } else {
-                processarVezComputador(caractereComputador);
+                processarVezComputador(caractereComputador, caractereUsuario);
                 if (teveGanhador(caractereComputador)) {
                     limparTela();
                     exibirTabuleiro();
@@ -86,22 +86,35 @@ public class App {
                 tabuleiro[linha][coluna] == ' ';
     }
 
-    static int[] obterJogadaUsuario() {
-        int linha, coluna;
+static int[] obterJogadaUsuario() {
+    int linha, coluna;
 
-        while (true) {
-            System.out.print("Informe linha (1-3): ");
-            linha = teclado.nextInt() - 1;
-            System.out.print("Informe coluna (1-3): ");
-            coluna = teclado.nextInt() - 1;
-            teclado.nextLine();
+    while (true) {
+        System.out.print("Informe a jogada (linha||coluna): ");
+        String entrada = teclado.nextLine();
+        String[] partes = entrada.split(" ");
+
+        if (partes.length != 2) {
+            System.out.println("Formato inválido. Use: linha||coluna");
+            continue;
+        }
+
+        try {
+            linha = Integer.parseInt(partes[0]) - 1;
+            coluna = Integer.parseInt(partes[1]) - 1;
 
             if (jogadaValida(linha, coluna)) {
                 return new int[]{linha, coluna};
+            } else {
+                System.out.println("Jogada inválida, posição ocupada ou fora do tabuleiro.");
             }
-            System.out.println("Jogada inválida, tente novamente.");
+
+        } catch (NumberFormatException e) {
+            System.out.println("Digite apenas números.");
         }
     }
+}
+
 
     static int[] obterJogadaComputador() {
         int linha, coluna;
@@ -118,10 +131,15 @@ public class App {
         atualizaTabuleiro(jogada, caractereUsuario);
     }
 
-    static void processarVezComputador(char caractereComputador) {
-        int[] jogada = obterJogadaComputador();
-        atualizaTabuleiro(jogada, caractereComputador);
+    static void processarVezComputador(char caractereComputador, char caractereUsuario) {
+    if (bloquearJogador(caractereUsuario, caractereComputador)) {
+        return;
     }
+
+    int[] jogada = obterJogadaComputador();
+    atualizaTabuleiro(jogada, caractereComputador);
+}
+
 
     static void atualizaTabuleiro(int[] jogada, char caractere) {
         tabuleiro[jogada[0]][jogada[1]] = caractere;
@@ -179,6 +197,25 @@ public class App {
         return true;
     }
 
+    static boolean bloquearJogador(char caractereUsuario, char caractereComputador) {
+
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+
+            if (tabuleiro[i][j] == ' ') {
+                tabuleiro[i][j] = caractereUsuario;
+                if (teveGanhador(caractereUsuario)) {
+                    tabuleiro[i][j] = caractereComputador;
+                    return true;
+                }
+                tabuleiro[i][j] = ' ';
+            }
+        }
+    }
+
+    return false;
+}
+
     static void limparTela() {
         System.out.println("\n\n\n\n\n\n");
     }
@@ -196,22 +233,22 @@ public class App {
 
     static void exibirVitoriaUsuario() {
         System.out.println( "  _  |       |  _\n" + //
-                " ( \\ |  WIN  | / )\n" + //
-                "  \\ \\|___|/ /\n" + //
+                " ( \\ | VENCI | / )\n" + //
+                "  \\ \\|_______|  / \n" + //
                 "   \\           /\n" + //
                 "    \\         /\n" );
     }
 
     static void exibirVitoriaComputador() {
-        System.out.println("   _______\n" + //
-                "  |  _______  |\n" + //
+        System.out.println("   _____________________\n" + //
+                "  |  _________________  |\n" + //
                 "  | |                 | |\n" + //
                 "  | |    COMPUTADOR   | |\n" + //
                 "  | |      VENCEU     | |\n" + //
-                "  | |_______| |\n" + //
-                "  |_______|\n" + //);
-                "    _______\n" + //
-                "   |_______|\n" + //
+                "  | |_________________| |\n" + //
+                "  |_____________________|\n" + //);
+                "    ________| |_______\n" + //
+                "   |__________________|\n" + //
                 "");
     }
 
